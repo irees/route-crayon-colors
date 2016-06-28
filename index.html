@@ -1,0 +1,43 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+  <script src="crayola.js"></script>
+  <script src="colors.js"></script>
+</head>
+
+<body>
+
+<div id="loading">Loading routes...</div>
+<table id="colors" cellpadding="5" cellspacing="0">
+  <thead>
+    <th>Operator</th>
+    <th>Route</th>
+    <th>Color</th>
+    <th>Crayon</th>
+  </thead>
+</table>
+
+<script>
+  var url = 'http://transit.land/api/v1/routes.json?vehicle_type=metro&per_page=100';
+  var table = $('#colors');
+  var palette = new Palette();
+  palette.load(colors);
+  $.getJSON(url, function(data) {
+    $('#loading').remove();
+    var routes = data['routes'];
+    routes.forEach(function(route) {
+      var color = route.color;
+      if (!color) { return }
+      var closest_color = palette.closest(RGBColor.from_hex(color));
+      var row = $('<tr />');
+      $('<td />').append($('<a />').text(route.operated_by_name).attr('href', url+'&operated_by='+route.operated_by_onestop_id)).appendTo(row);
+      $('<td />').append($('<a />').text(route.name).attr('href', url+'&onestop_id='+route.onestop_id)).appendTo(row);
+      $('<td />').text(color).css('background-color', color).appendTo(row);
+      $('<td />').text(closest_color.name).appendTo(row);
+      table.append(row);
+    });
+  });
+</script>
+
+</body>
+</html>
