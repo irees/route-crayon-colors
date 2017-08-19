@@ -8,7 +8,7 @@
 <body>
 
 <div id="loading">Loading routes...</div>
-<table id="colors" cellpadding="5" cellspacing="0">
+<table id="colors" cellpadding="5" cellspacing="5">
   <thead>
     <th>Operator</th>
     <th>Route</th>
@@ -32,8 +32,8 @@
       var row = $('<tr />');
       $('<td />').append($('<a />').text(route.operated_by_name).attr('href', url+'&operated_by='+route.operated_by_onestop_id)).appendTo(row);
       $('<td />').append($('<a />').text(route.name).attr('href', url+'&onestop_id='+route.onestop_id)).appendTo(row);
-      $('<td />').text(color).css('background-color', color).appendTo(row);
-      $('<td />').text(closest_color.name).appendTo(row);
+      $('<td />').text(route.operated_by_name + ": " + route.name).css('background-color', color).appendTo(row);
+      $('<td />').text(closest_color.name).css('background-color', closest_color.hex).appendTo(row);
       table.append(row);
     });
   });

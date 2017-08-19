@@ -1,9 +1,10 @@
 // Inspired by https://github.com/cooperhewitt/py-cooperhewitt-swatchbook
-RGBColor = function(r, g, b, name) {
+RGBColor = function(r, g, b, name, hex) {
   this.r = r;
   this.g = g;
   this.b = b;
   this.name = name;
+  this.hex = hex;
 };
 RGBColor.from_hex = function (hex, name) {
   hex = hex.replace('#','');
@@ -11,7 +12,8 @@ RGBColor.from_hex = function (hex, name) {
     parseInt(hex.substring(0,2),16) / 255.0,
     parseInt(hex.substring(2,4),16) / 255.0,
     parseInt(hex.substring(4,6),16) / 255.0,
-    name
+    name,
+    hex
   )
 }
 RGBColor.prototype = {
